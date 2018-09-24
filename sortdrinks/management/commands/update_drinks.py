@@ -17,6 +17,7 @@ class Command(BaseCommand):
             data = json.loads(f.read())
 
         items = data['items']
+        drinks = []
 
         for item in items:
             # Ignore unbuyable drinks
@@ -60,4 +61,5 @@ class Command(BaseCommand):
                 volume=item['volume'],
                 score=item['pricePerLiter'] / alcohol
             )
-            drink.save()
+            drinks.append(drink)
+        Drink.objects.bulk_create(drinks)
