@@ -12,7 +12,6 @@ class Drink(models.Model):
 
     price = models.FloatField()
     volume = models.FloatField()
-    price_per_liter = models.FloatField()
     alcohol_percent = models.FloatField()
 
     score = models.FloatField()

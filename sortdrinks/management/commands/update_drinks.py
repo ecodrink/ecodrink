@@ -56,7 +56,6 @@ class Command(BaseCommand):
                 style=style,
                 organic=item['organic'],
                 price=item['price'],
-                price_per_liter=item['pricePerLiter'],
                 alcohol_percent=alcohol,
                 volume=item['volume'],
                 score=item['pricePerLiter'] / alcohol
