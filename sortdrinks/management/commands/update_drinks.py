@@ -22,20 +22,24 @@ class Command(BaseCommand):
             # Ignore unbuyable drinks
             if item['discontinued']:
                 continue
-            # Check if we already know about the item
-            try:
-                drink = Drink.objects.get(item_id=item['id'])
-                # Update the price if different
-                if drink.price != item['price']:
-                    drink.price = item['price']
-                    drink.save()
-                continue
-            except Drink.DoesNotExist:
-                pass
             # Ignore alcohol free drinks
             alcohol = float(item['alcoholByVolume'][:-1])
             if not alcohol:
                 continue
+            # Check if we already know about the item
+            try:
+                drink = Drink.objects.get(item_id=item['id'])
+                if item['discontinued']:
+                    # Remove old drinks
+                    drink.delete()
+                elif drink.price != item['price']:
+                    # Update the price if different
+                    drink.price = item['price']
+                    drink.score = item['pricePerLiter'] / alcohol
+                    drink.save()
+                continue
+            except Drink.DoesNotExist:
+                pass
             category = Category.objects.get_or_create(name=item['group'])[0]
             if item['style']:
                 style = Style.objects.get_or_create(name=item['style'])[0]
