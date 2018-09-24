@@ -1,0 +1,52 @@
+{% extends "sortdrinks/base.html" %}
+{% block content %}
+
+{% load bootstrap4 %}
+
+<form class="form-control" method="get" enctype="multipart/form-data" action="{{ request.path }}">
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">Search</button>
+    {% endbuttons %}
+    {% if request.path != '/search/' %}
+        <a href="{% url 'sortdrinks:search' %}">Advanced search</a>
+    {% else %}
+        <a href="{% url 'sortdrinks:index' %}">Normal search</a>
+    {% endif %}
+</form>
+
+{% if drinks %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category - Style</th>
+            <th scope="col">Price (SEK)</th>
+            <th scope="col">Volume (mL)</th>
+            <th scope="col">Alcohol (%)</th>
+            <th scope="col">Price of a % (SEK.L⁻¹.%⁻¹)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for drink in drinks %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ drink.name }}</td>
+            <td>{{ drink.category }}
+                {% if drink.style %}
+                    - {{ drink.style }}
+                {% endif %}
+            </td>
+            <td>{{ drink.price|floatformat }}</td>
+            <td>{{ drink.volume|floatformat }}</td>
+            <td>{{ drink.alcohol_percent|floatformat }}</td>
+            <td>{{ drink.score|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+{% endblock %}
