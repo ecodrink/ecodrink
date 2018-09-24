@@ -1,19 +1,21 @@
-<head>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-</head>
-<body>
-    <div class="text-center">
-    <h1 id="title" class="display-4">
-        <a href="{% url 'sortdrinks:index' %}" class="text-info">
-            ECODRINK
-        </a><br>
-    </h1>
-        <a class="text-muted">
-            Sustainable and efficient drinking, for you and your wallet!
-        </a>
-    </div><br>
-    <main role="main" class="container">
-        {% block content %}{% endblock %}
-    </main>
-</body>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    </head>
+    <body>
+        <div class="text-center">
+        <h1 id="title" class="display-4">
+            <a href="{% url 'sortdrinks:index' %}" class="text-info">
+                ECODRINK
+            </a><br>
+        </h1>
+            <a class="text-muted">
+                Sustainable and efficient drinking, for you and your wallet!
+            </a>
+        </div><br>
+        <main role="main" class="container">
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>
