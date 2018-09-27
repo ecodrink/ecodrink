@@ -2,7 +2,7 @@ import json
 
 from django.core.management.base import BaseCommand
 
-from sortdrinks.models import Category, Drink, Style
+from sortdrinks.models import Category, Drink, Style, Country
 
 
 class Command(BaseCommand):
@@ -42,6 +42,7 @@ class Command(BaseCommand):
             except Drink.DoesNotExist:
                 pass
             category = Category.objects.get_or_create(name=item['group'])[0]
+            country = Country.objects.get_or_create(name=item['countryOfOrigin'])[0]
             if item['style']:
                 style = Style.objects.get_or_create(name=item['style'])[0]
             else:
@@ -55,6 +56,7 @@ class Command(BaseCommand):
                 category=category,
                 style=style,
                 organic=item['organic'],
+                country=country,
                 price=item['price'],
                 alcohol_percent=alcohol,
                 volume=item['volume'],

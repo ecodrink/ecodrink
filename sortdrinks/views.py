@@ -36,12 +36,15 @@ def search(request):
         max_results = form.cleaned_data['length']
         categories = form.cleaned_data['categories']
         styles = form.cleaned_data['styles']
+        countries = form.cleaned_data['countries']
         organic = form.cleaned_data['organic']
         drinks = Drink.objects.all()
         if categories:
             drinks = drinks.filter(category__in=categories)
         if styles:
             drinks = drinks.filter(style__in=styles)
+        if countries:
+            drinks = drinks.filter(country__in=countries)
         if organic:
             drinks = drinks.filter(organic=organic)
         context['drinks'] = drinks[:max_results]

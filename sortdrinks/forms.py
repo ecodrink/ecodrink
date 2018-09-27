@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Category, Style
+from .models import Category, Style, Country
 
 
 class DrinkForm(forms.Form):
@@ -9,6 +9,8 @@ class DrinkForm(forms.Form):
                                                 required=False)
     styles = forms.ModelMultipleChoiceField(queryset=Style.objects.all(),
                                             required=False)
+    countries = forms.ModelMultipleChoiceField(queryset=Country.objects.all(),
+                                               required=False)
     organic = forms.BooleanField(required=False,
                                  help_text='Uncheked means indifferent.')
     length = forms.IntegerField(label='Number of drinks to show',
