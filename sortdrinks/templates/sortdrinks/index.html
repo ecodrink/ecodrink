@@ -32,7 +32,10 @@
         {% for drink in drinks %}
         <tr>
             <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ drink.name }}</td>
+            {% if drink.new %}style="color:red"{% endif %}
+            <td {% if drink.is_new %} style="color:red" {% endif %}>
+                {{ drink.name }}
+            </td>
             <td>{{ drink.category }}
                 {% if drink.style %}
                     - {{ drink.style }}
